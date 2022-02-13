@@ -27,8 +27,10 @@ import { SwitchCell } from "../../SwitchCell";
 import { LabelCell } from "../../LabelCell/LabelCell";
 import { DateCell } from "../../DateCell";
 import { SelectCell } from "../../SelectCell";
+import { GenderCell } from "../../GenderCell";
 import CheckboxCell from "../../CheckboxCell";
 import { SelectCellData } from "../../SelectCell/schema";
+import { GenderCellData } from "../../GenderCell/schema";
 
 export interface CustomCell {
   type: string;
@@ -191,6 +193,8 @@ export const Cell = forwardRef(
             />
           ) : data.type === "select" ? (
             <SelectCell {...props} data={data as SelectCellData} />
+          ) : data.type === "gender" ? (
+            <GenderCell {...props} data={data as GenderCellData} />
           ) : data.type === "datetime" ? (
             <DateCell {...props} />
           ) : data.type === "checkbox" ? (

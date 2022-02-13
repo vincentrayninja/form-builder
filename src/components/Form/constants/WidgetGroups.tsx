@@ -69,7 +69,7 @@ export const WidgetGroups: { name: string; widgets: WidgetData[] }[] = [
            name: "Components",
            widgets: [
              {
-               type: "select",
+               type: "gender",
                icon: <AiOutlineMan />,
                name: "Gender",
              },

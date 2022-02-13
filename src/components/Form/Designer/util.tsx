@@ -338,11 +338,8 @@ export function createBasicWidgetInstance(type: string): CellData {
       { span: 12, cellDataList: [] },
       { span: 12, cellDataList: [] },
     ];
-  }
-  else if (cellData.type === "section") {
-    cellData.lanes = [
-      { span: 24, cellDataList: [] },
-    ];
+  } else if (cellData.type === "section") {
+    cellData.lanes = [{ span: 24, cellDataList: [] }];
   } else if (cellData.type === "tab") {
     cellData.lanes = [
       { span: 24, cellDataList: [] },
@@ -353,6 +350,8 @@ export function createBasicWidgetInstance(type: string): CellData {
     cellData.label = "List";
     cellData.lanes = [{ cellDataList: [], span: 100 }];
   } else if (cellData.type === "select") {
+    cellData.options = [];
+  } else if (cellData.type === "gender") {
     cellData.options = [];
   }
   return cellData;

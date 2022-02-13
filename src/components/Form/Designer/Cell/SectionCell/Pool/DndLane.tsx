@@ -29,6 +29,7 @@ export const DndLane = function ({
       "section",
       "textarea",
       "select",
+      "gender",
       "datetime",
       "checkbox",
       "list",

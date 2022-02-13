@@ -54,6 +54,7 @@ export const DnDCell = function ({
       "input",
       "textarea",
       "select",
+      "gender",
       "checkbox",
       "datetime",
       "grid",

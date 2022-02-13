@@ -10,6 +10,12 @@ interface GenderCellProps extends CellProps {
   data: GenderCellData;
 }
 
+let options = [
+  { label: "Male", value: "0", key: 1 },
+  { label: "Female", value: "1", key: 2 },
+  { label: "Other", value: "2", key: 3 },
+];
+
 export const GenderCell = ({
   data,
   layout,
@@ -32,8 +38,8 @@ export const GenderCell = ({
             style={{ width: "100%" }}
             onChange={(value) => onChange(value)}
           >
-            {data.options.map((option) => (
-              <Option key={option.value} value={option.value}>
+            {options.map((option) => (
+              <Option key={option.key} value={option.value}>
                 {option.label}
               </Option>
             ))}

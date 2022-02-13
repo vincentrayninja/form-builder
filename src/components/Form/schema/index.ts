@@ -174,6 +174,7 @@ export interface DispatchDeleteLaneProps {
 export type CellDataType =
   | "textarea"
   | "select"
+  | "gender"
   | "datetime"
   | "grid"
   | "section"

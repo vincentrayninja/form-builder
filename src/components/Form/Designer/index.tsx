@@ -40,11 +40,13 @@ import TabCellConfig from "./Cell/TabCell/TabCellConfig";
 import "./index.css";
 import CheckboxCellConfig from "../CheckboxCell/CheckboxCellConfig";
 import SelectCellConfig from "../SelectCell/SelectCellConfig";
+import GenderCellConfig from "../GenderCell/GenderCellConfig";
 import DateCellConfig from "../DateCell/DateCellConfig";
 import { contentStyle, layoutStyle, rightSiderStyle } from "./style";
 import InputCellConfig from "../InputCell/InputCellConfig";
 import { InputCellData } from "../InputCell/schema";
 import { SelectCellData } from "../SelectCell/schema";
+import { GenderCellData } from "../GenderCell/schema";
 
 const rootCellData: CellData = {
   type: "grid",
@@ -239,6 +241,8 @@ export const Designer = forwardRef(
                       <DateCellConfig data={active} />
                     ) : active.type === "select" ? (
                       <SelectCellConfig data={active as SelectCellData} />
+                    ) : active.type === "gender" ? (
+                      <GenderCellConfig data={active as GenderCellData} />
                     ) : active.type === "checkbox" ? (
                       <CheckboxCellConfig data={active as SelectCellData} />
                     ) : active.type === "label" ? (
