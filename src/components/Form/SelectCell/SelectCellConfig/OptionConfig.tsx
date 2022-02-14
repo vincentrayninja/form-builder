@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { AiOutlineMenu, AiOutlineMinusCircle } from "react-icons/ai";
-import { Button, Input } from "antd";
+import { Button, Col, Divider, Input, Row } from "antd";
 import { useVerticalDragDropMemberRef } from "../../../hook";
 
 interface OptionConfigProps {
@@ -25,41 +25,49 @@ export default function OptionConfig({
   return (
     <>
       <div ref={ref}>
-        <AiOutlineMenu style={{ cursor: "move" }} />
-        <b>Label:</b>
-        <Input
-          onChange={(event) => {
-            setFlabel(event.target.value);
-            onChange(index, event.target.value, new Date().toString());
-          }}
-          value={label}
-          size={"small"}
-          style={{
-            width: "90px",
-            margin: "0 4px",
-          }}
-        />
-        <b>Value:</b>
-        <Input
-          onChange={(event) => {
-            onChange(index, Flabel, event.target.value);
-          }}
-          value={value}
-          size={"small"}
-          style={{
-            width: "80px",
-            margin: "0 4px",
-          }}
-        />
-        <Button
-          type={"link"}
-          onClick={() => {
-            onRemove(index);
-          }}
-          style={{ padding: "0" }}
-        >
-          <AiOutlineMinusCircle />
-        </Button>
+        <Row>
+          <Col span={3}>
+            <AiOutlineMenu style={{ cursor: "move" }} />
+            <br />
+            <Button
+              type={"link"}
+              onClick={() => {
+                onRemove(index);
+              }}
+              style={{ padding: "0" }}
+            >
+              <AiOutlineMinusCircle />
+            </Button>
+          </Col>
+          <Col span={21}>
+            <b>Label:</b>
+            <Input
+              onChange={(event) => {
+                setFlabel(event.target.value);
+                onChange(index, event.target.value, new Date().toString());
+              }}
+              value={label}
+              size={"small"}
+              style={{
+                width: "100px",
+                margin: "0 2px",
+              }}
+            />
+            <b>Value:</b>
+            <Input
+              onChange={(event) => {
+                onChange(index, Flabel, event.target.value);
+              }}
+              value={value}
+              size={"small"}
+              style={{
+                width: "100px",
+                margin: "0 2px",
+              }}
+            />
+          </Col>
+        </Row>
+        <hr />
       </div>
     </>
   );
