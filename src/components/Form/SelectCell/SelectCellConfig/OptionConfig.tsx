@@ -44,7 +44,11 @@ export default function OptionConfig({
             <Input
               onChange={(event) => {
                 setFlabel(event.target.value);
-                onChange(index, event.target.value, new Date().toString());
+                onChange(
+                  index,
+                  event.target.value,
+                  new Date().getTime().toString()
+                );
               }}
               value={label}
               size={"small"}
