@@ -1,9 +1,9 @@
 import React from "react";
 import "./App.css";
 import { Designer } from "./components/Form/Designer";
-import Form from "./components/Form";
-import { CellLocation } from "./components/Form/schema";
-import { Interactions } from "./components/Form/hooks/interactions";
+// import Form from "./components/Form";
+// import { CellLocation } from "./components/Form/schema";
+// import { Interactions } from "./components/Form/hooks/interactions";
 
 function App() {
   return (
