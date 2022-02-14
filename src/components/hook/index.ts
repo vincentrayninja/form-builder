@@ -80,52 +80,53 @@ export function useVerticalDragDropMemberRef(
 }
 
 export function useVerticalDragDropMemberEvent(
-  data: CellData
-): {
-  onChange: (index: number, label: string) => void;
-  onRemove: (index: number) => void;
-  move: (from: number, to: number) => void;
-} {
-  const designerDispatch = useContext(DesignerContext);
-  return {
-    onChange(index: number, label: string) {
-      designerDispatch({
-        type: "UPDATE",
-        data: {
-          ...data,
-          options: update(data.options, {
-            [index]: {
-              label: { $set: label || "" },
-            },
-          }),
-        },
-      });
-    },
-    onRemove(index: number) {
-      designerDispatch({
-        type: "UPDATE",
-        data: {
-          ...data,
-          options: update(data.options, {
-            $splice: [[index, 1]],
-          }),
-        },
-      });
-    },
-    move(from: number, to: number) {
-      const dragItem = data.options![from]!;
-      designerDispatch({
-        type: "UPDATE",
-        data: {
-          ...data,
-          options: update(data.options, {
-            $splice: [
-              [from, 1],
-              [to, 0, dragItem],
-            ],
-          }),
-        },
-      });
-    },
-  };
-}
+         data: CellData
+       ): {
+         onChange: (index: number, label: string, value: string) => void;
+         onRemove: (index: number) => void;
+         move: (from: number, to: number) => void;
+       } {
+         const designerDispatch = useContext(DesignerContext);
+         return {
+           onChange(index: number, label: string, value: string) {
+             designerDispatch({
+               type: "UPDATE",
+               data: {
+                 ...data,
+                 options: update(data.options, {
+                   [index]: {
+                     label: { $set: label || "" },
+                     value: { $set: value || "" },
+                   },
+                 }),
+               },
+             });
+           },
+           onRemove(index: number) {
+             designerDispatch({
+               type: "UPDATE",
+               data: {
+                 ...data,
+                 options: update(data.options, {
+                   $splice: [[index, 1]],
+                 }),
+               },
+             });
+           },
+           move(from: number, to: number) {
+             const dragItem = data.options![from]!;
+             designerDispatch({
+               type: "UPDATE",
+               data: {
+                 ...data,
+                 options: update(data.options, {
+                   $splice: [
+                     [from, 1],
+                     [to, 0, dragItem],
+                   ],
+                 }),
+               },
+             });
+           },
+         };
+       }

@@ -33,7 +33,7 @@ export const SelectCell = ({
             onChange={(value) => onChange(value)}
           >
             {data.options.map((option) => (
-              <Option key={option.value} value={option.label}>
+              <Option key={option.value} value={option.value}>
                 {option.label}
               </Option>
             ))}

@@ -21,6 +21,7 @@ const CellOptionsConfig = ({ data }: { data: SelectCellData }): JSX.Element => {
               key={"option-config-" + index}
               index={index}
               label={option.label}
+              value={option.value.toString()}
               onChange={onChange}
               onRemove={onRemove}
               move={move}
