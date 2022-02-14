@@ -6,6 +6,7 @@ import CellReadonlyConfig from "../../CellReadonlyConfig";
 import CellOptionsConfig from "../../CellOptionsConfig";
 import { labelCol } from "../../Designer/constant";
 import { SelectCellData } from "../schema";
+import CellIdConfig from "../../CellIdConfig";
 
 interface SelectCellConfigProps {
   data: SelectCellData;
@@ -17,6 +18,7 @@ export default function SelectCellConfig({
   return (
     <>
       <Form labelCol={labelCol}>
+        <CellIdConfig data={data} />
         <CellLabelConfig data={data} />
         <CellRequiredConfig data={data} />
         <CellReadonlyConfig data={data} />

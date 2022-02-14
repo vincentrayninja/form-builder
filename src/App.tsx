@@ -104,7 +104,7 @@ function App() {
         />
       </div> */}
 
-      <h2 style={{ marginTop: 30 }}>Designer example</h2>
+      <h2 style={{ marginTop: 30 }}>Form Builder</h2>
       <Designer />
     </div>
   );

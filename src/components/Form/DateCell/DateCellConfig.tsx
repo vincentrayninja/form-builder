@@ -4,6 +4,7 @@ import { AutoComplete, Form, Typography } from "antd";
 import CellLabelConfig from "../CellLabelConfig";
 import CellRequiredConfig from "../CellRequiredConfig";
 import CellReadonlyConfig from "../CellReadonlyConfig";
+import CellIdConfig from "../CellIdConfig";
 import { labelCol } from "../Designer/constant";
 
 const { Text } = Typography;
@@ -33,6 +34,7 @@ export default function DateCellConfig({
   return (
     <>
       <Form labelCol={labelCol}>
+        <CellIdConfig data={data} />
         <CellLabelConfig data={data} />
         <CellRequiredConfig data={data} />
         <CellReadonlyConfig data={data} />
