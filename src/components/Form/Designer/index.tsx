@@ -212,7 +212,15 @@ export const Designer = forwardRef(
                           >
                             Preview
                           </Button>
-                          <Button onClick={() => alert(JSON.stringify(data))}>
+                          <Button
+                            onClick={() => {
+                              alert(JSON.stringify(data));
+                              console.log(
+                                "Save Form---->",
+                                JSON.stringify(data)
+                              );
+                            }}
+                          >
                             Save
                           </Button>
                         </Space>
@@ -289,6 +297,7 @@ export const Designer = forwardRef(
               onClick={() => {
                 const result = previewRef.current!.getData();
                 alert(JSON.stringify(result));
+                console.log("form response---->", JSON.stringify(result));
               }}
             >
               Save
