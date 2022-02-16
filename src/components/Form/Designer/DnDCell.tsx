@@ -59,6 +59,7 @@ export const DnDCell = function ({
       "datetime",
       "grid",
       "section",
+      "address",
       "list",
       "label",
       "tab",

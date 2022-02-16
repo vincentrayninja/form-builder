@@ -185,6 +185,11 @@ export const Cell = forwardRef(
               data={data as LanedCellData}
               customCells={customCells}
             />
+          ) : data.type === "address" ? (
+            <SectionCell
+              data={data as LanedCellData}
+              customCells={customCells}
+            />
           ) : data.type === "list" ? (
             <GridCell
               data={data as LanedCellData}

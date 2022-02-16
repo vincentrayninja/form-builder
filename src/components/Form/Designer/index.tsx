@@ -243,6 +243,8 @@ export const Designer = forwardRef(
                       <GridCellConfig data={active as LanedCellData} />
                     ) : active.type === "section" ? (
                       <SectionCellConfig data={active as LanedCellData} />
+                    ) : active.type === "address" ? (
+                      <SectionCellConfig data={active as LanedCellData} />
                     ) : active.type === "tab" ? (
                       <TabCellConfig data={active as TabCellData} />
                     ) : active.type === "datetime" ? (

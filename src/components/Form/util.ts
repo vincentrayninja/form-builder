@@ -14,6 +14,7 @@ export function getValues(cell: CellData): any {
           switch (element.type) {
             case "grid":
             case "section":
+            case "address":
             case "tab":
               func(element);
               break;
@@ -63,6 +64,7 @@ export function getValue(root: CellData, id: string): any | any[] {
           switch (element.type) {
             case "grid":
             case "section":
+            case "address":
             case "tab":
               func(element);
               break;
@@ -117,6 +119,7 @@ export function set(root: CellData, id: string, key: string, value: any): void {
           switch (element.type) {
             case "grid":
             case "section":
+            case "address":
             case "tab":
               func(element);
               break;
@@ -166,6 +169,7 @@ export function setData(root: CellData, form: any): void {
         item.type !== "list" &&
         item.type !== "grid" &&
         item.type !== "section" &&
+        item.type !== "address" &&
         item.type !== "tab"
       ) {
         cellData.value = value ? formatValue(value, cellData.type) : null;

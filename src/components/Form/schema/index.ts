@@ -178,6 +178,7 @@ export type CellDataType =
   | "datetime"
   | "grid"
   | "section"
+  | "address"
   | "list"
   | "tab"
   | "checkbox"

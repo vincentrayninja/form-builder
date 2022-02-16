@@ -27,6 +27,7 @@ export const DndLane = function ({
       "input",
       "grid",
       "section",
+      "address",
       "textarea",
       "select",
       "gender",

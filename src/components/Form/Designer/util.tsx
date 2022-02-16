@@ -70,6 +70,7 @@ export function forEach(
           if (
             cellData.type === "grid" ||
             cellData.type === "section" ||
+            cellData.type === "address" ||
             cellData.type === "list" ||
             cellData.type === "tab"
           ) {
@@ -131,6 +132,7 @@ export function locate(
           if (
             cellData.type === "grid" ||
             cellData.type === "section" ||
+            cellData.type === "address" ||
             cellData.type === "list" ||
             cellData.type === "tab"
           ) {
@@ -171,6 +173,7 @@ export function getCellDataList(
           if (
             cellData.type === "grid" ||
             cellData.type === "section" ||
+            cellData.type === "address" ||
             cellData.type === "list" ||
             cellData.type === "tab"
           ) {
@@ -339,6 +342,8 @@ export function createBasicWidgetInstance(type: string): CellData {
       { span: 12, cellDataList: [] },
     ];
   } else if (cellData.type === "section") {
+    cellData.lanes = [{ span: 24, cellDataList: [] }];
+  } else if (cellData.type === "address") {
     cellData.lanes = [{ span: 24, cellDataList: [] }];
   } else if (cellData.type === "tab") {
     cellData.lanes = [
