@@ -1,97 +1,116 @@
 import React from "react";
 import "./App.css";
 import { Designer } from "./components/Form/Designer";
-// import Form from "./components/Form";
-// import { CellLocation } from "./components/Form/schema";
-// import { Interactions } from "./components/Form/hooks/interactions";
+import Form from "./components/Form";
+import { CellLocation } from "./components/Form/schema";
+import { Interactions } from "./components/Form/hooks/interactions";
 
 function App() {
   return (
     <div style={{ padding: 20 }}>
-      {/* <h1>Dynamic Form</h1>
-      <hr />
-      <h2>Form example</h2>
-      <div style={{ border: "1px solid #d3d3d3", padding: 20, width: 600 }}>
+      {/* <h1>Dynamic Form</h1> */}
+      {/* <hr /> */}
+      {/* <h2>Form example</h2> */}
+      <div style={{ border: "1px solid #d3d3d3", padding: 20, width: "100%" }}>
         <Form
           data={{
             type: "grid",
-            id: "1127",
+            id: "11270307",
             lanes: [
               {
+                span: 24,
                 cellDataList: [
                   {
-                    type: "input",
-                    id: "sn",
-                    label: "Single Number",
-                    value: "00000001",
-                  },
-                  {
-                    id: "detail",
-                    type: "list",
-                    label: "Details",
+                    type: "section",
+                    id: "section1645016485435",
+                    active: false,
+                    label: "Personal Details",
                     lanes: [
                       {
+                        span: 24,
                         cellDataList: [
                           {
-                            id: "price",
                             type: "input",
-                            label: "Unit Price",
-                            width: "30%",
-                            value: 10,
+                            id: "fname",
+                            active: false,
+                            label: "First Name",
                           },
                           {
-                            id: "count",
                             type: "input",
-                            label: "Quantity",
-                            width: "30%",
-                            value: 10,
-                            onChange: function (
-                              val: unknown,
-                              { getValue, setValue, set }: Interactions,
-                              valueObject: never,
-                              location: CellLocation
-                            ) {
-                              const price = getValue(
-                                `${location.parentId}.${location.index}.price`
-                              );
-                              set(
-                                `${location.parentId}.${location.index}.amount`,
-                                "value",
-                                price * (val as number)
-                              );
-                            },
+                            id: "lname",
+                            active: false,
+                            label: "Last name",
                           },
                           {
-                            id: "amount",
                             type: "input",
-                            label: "Subtotal",
-                            width: "40%",
-                            value: 100,
+                            id: "email",
+                            active: false,
+                            label: "Email",
+                            format: "email",
                           },
                         ],
                       },
+                    ],
+                  },
+                  {
+                    type: "section",
+                    id: "section1645016608924",
+                    active: false,
+                    label: "Address",
+                    lanes: [
                       {
+                        span: 24,
                         cellDataList: [
                           {
-                            id: "price",
                             type: "input",
-                            label: "Unit Price",
-                            width: "30%",
-                            value: 10,
+                            id: "building",
+                            active: false,
+                            label: "Building / Appartment",
                           },
                           {
-                            id: "count",
                             type: "input",
-                            label: "Quantity",
-                            width: "30%",
-                            value: 10,
+                            id: "address",
+                            active: false,
+                            label: "Address",
                           },
                           {
-                            id: "amount",
-                            type: "input",
-                            label: "Subtotal",
-                            width: "40%",
-                            value: 100,
+                            type: "grid",
+                            id: "grid1645016776706",
+                            active: false,
+                            label: "grid",
+                            lanes: [
+                              {
+                                span: 12,
+                                cellDataList: [
+                                  {
+                                    type: "select",
+                                    id: "country",
+                                    active: false,
+                                    label: "Country",
+                                    options: [
+                                      { label: "India", value: "in" },
+                                      { label: "Australia", value: "au" },
+                                    ],
+                                  },
+                                ],
+                              },
+                              {
+                                span: 12,
+                                cellDataList: [
+                                  {
+                                    type: "select",
+                                    id: "state",
+                                    active: false,
+                                    label: "State",
+                                    options: [
+                                      { label: "Gujrat", value: "gu" },
+                                      { label: "Rajasthan", value: "rj" },
+                                      { label: "Melborn", value: "Mb" },
+                                    ],
+                                  },
+                                ],
+                              },
+                            ],
                           },
                         ],
                       },
@@ -100,9 +119,10 @@ function App() {
                 ],
               },
             ],
+            active: true,
           }}
         />
-      </div> */}
+      </div>
 
       <h2 style={{ marginTop: 30 }}>Form Builder</h2>
       <Designer />

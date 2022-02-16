@@ -5,6 +5,8 @@ import { Button, Form } from "antd";
 import { DesignerContext } from "../../index";
 import { labelCol } from "../../constant";
 import { LanedCellData } from "../../../schema";
+import CellIdConfig from "../../../CellIdConfig";
+import CellLabelConfig from "../../../CellLabelConfig";
 
 export default function SectionCellConfig({
   data,
@@ -20,51 +22,53 @@ export default function SectionCellConfig({
             data.lanes &&
             data.lanes.map((lane, index) => (
               <>
-              {/* <LaneConfig
-                key={index}
-                index={index}
-                data={lane}
-                onResize={(span) => {
-                  const finalSpan =
-                    typeof span === "string" || !span ? 0 : span;
-                  designerDispatch({
-                    type: "UPDATE",
-                    data: {
-                      ...data,
-                      lanes: update(data.lanes, {
-                        [index]: {
-                          span: { $set: finalSpan },
-                        },
-                      }),
-                    },
-                  });
-                }}
-                onRemove={() => {
-                  designerDispatch({
-                    type: "UPDATE",
-                    data: {
-                      ...data,
-                      lanes: update(data.lanes, {
-                        $splice: [[index, 1]],
-                      }),
-                    },
-                  });
-                }}
-                move={(from, to) => {
-                  const dragItem = data.lanes[from];
-                  designerDispatch({
-                    type: "UPDATE",
-                    data: {
-                      ...data,
-                      lanes: update(data.lanes, {
-                        $splice: [
-                          [from, 1],
-                          [to, 0, dragItem],
-                        ],
-                      }),
-                    },
-                  });
-                }}
+                <CellIdConfig data={data} />
+                <CellLabelConfig data={data} />
+                {/* <LaneConfig
+                  key={index}
+                  index={index}
+                  data={lane}
+                  onResize={(span) => {
+                    const finalSpan =
+                      typeof span === "string" || !span ? 0 : span;
+                    designerDispatch({
+                      type: "UPDATE",
+                      data: {
+                        ...data,
+                        lanes: update(data.lanes, {
+                          [index]: {
+                            span: { $set: finalSpan },
+                          },
+                        }),
+                      },
+                    });
+                  }}
+                  onRemove={() => {
+                    designerDispatch({
+                      type: "UPDATE",
+                      data: {
+                        ...data,
+                        lanes: update(data.lanes, {
+                          $splice: [[index, 1]],
+                        }),
+                      },
+                    });
+                  }}
+                  move={(from, to) => {
+                    const dragItem = data.lanes[from];
+                    designerDispatch({
+                      type: "UPDATE",
+                      data: {
+                        ...data,
+                        lanes: update(data.lanes, {
+                          $splice: [
+                            [from, 1],
+                            [to, 0, dragItem],
+                          ],
+                        }),
+                      },
+                    });
+                  }}
                 /> */}
               </>
             ))}

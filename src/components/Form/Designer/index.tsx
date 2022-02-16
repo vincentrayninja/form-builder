@@ -26,6 +26,7 @@ import { WidgetGroups } from "../constants/WidgetGroups";
 import { DnDCell } from "./DnDCell";
 import GridCellConfig from "./Cell/GridCellConfig";
 import SectionCellConfig from "./Cell/SectionCellConfig";
+import AddressCellConfig from "./Cell/AddressCellConfig";
 import styled from "styled-components";
 import WidgetGroup from "./WidgetGroup";
 import LabelCellConfig from "../LabelCell/LabelCellConfig";
@@ -244,7 +245,7 @@ export const Designer = forwardRef(
                     ) : active.type === "section" ? (
                       <SectionCellConfig data={active as LanedCellData} />
                     ) : active.type === "address" ? (
-                      <SectionCellConfig data={active as LanedCellData} />
+                      <AddressCellConfig data={active as LanedCellData} />
                     ) : active.type === "tab" ? (
                       <TabCellConfig data={active as TabCellData} />
                     ) : active.type === "datetime" ? (

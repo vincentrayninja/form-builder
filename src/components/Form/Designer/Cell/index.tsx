@@ -16,6 +16,7 @@ import {
 } from "../../schema";
 import { GridCell } from "./GridCell";
 import { SectionCell } from "./SectionCell";
+import { AddressCell } from "./AddressCell";
 import { InstanceContext } from "../../index";
 import { Interactions } from "../../hooks/interactions";
 import { InteractContext } from "../../util";
@@ -186,7 +187,7 @@ export const Cell = forwardRef(
               customCells={customCells}
             />
           ) : data.type === "address" ? (
-            <SectionCell
+            <AddressCell
               data={data as LanedCellData}
               customCells={customCells}
             />
