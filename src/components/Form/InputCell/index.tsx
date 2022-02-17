@@ -2,6 +2,7 @@ import React, { useCallback, useMemo } from "react";
 import { Input } from "antd";
 import { CellProps } from "../schema";
 import { FormGroup } from "../Designer/FormGroup";
+import CellControls from "../CellControls";
 
 const InputCell = ({ data, layout, onChange }: CellProps): JSX.Element => {
   const label = useMemo(
@@ -26,7 +27,7 @@ const InputCell = ({ data, layout, onChange }: CellProps): JSX.Element => {
           placeholder={data.placeholder}
           onChange={handleChange}
         />
-        {data.controls ? "Controls are needs to be here" : ""}
+        {data.controls ? <CellControls /> : ""}
       </>
     ),
     [data.disabled, data.placeholder, data.value, data.controls, handleChange]
