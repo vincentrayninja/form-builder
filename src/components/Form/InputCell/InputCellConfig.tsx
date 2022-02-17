@@ -11,6 +11,7 @@ import { labelCol } from "../Designer/constant";
 import CellUniqueConfig from "../CellUniqueConfig";
 import CellIdConfig from "../CellIdConfig";
 import CellOnChangeConfig from "../CellOnChangeConfig";
+import CellControlsConfig from "../CellControlsConfig";
 
 interface InputCellConfigProps {
   data: InputCellData;
@@ -29,6 +30,7 @@ export default function InputCellConfig({
         <CellRequiredConfig data={innerData} />
         <CellReadonlyConfig data={innerData} />
         <CellUniqueConfig data={innerData} />
+        <CellControlsConfig data={innerData} />
         <CellDefaultConfig data={innerData} />
         <CellFormatConfig data={innerData} />
         {innerData.format === "custom" && (

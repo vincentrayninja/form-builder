@@ -32,7 +32,7 @@ export interface CellData {
   ) => void;
   width?: string | number;
   unique?: boolean;
-
+  controls?: boolean;
   [key: string]: any;
 }
 

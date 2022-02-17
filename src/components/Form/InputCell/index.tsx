@@ -19,14 +19,17 @@ const InputCell = ({ data, layout, onChange }: CellProps): JSX.Element => {
 
   const element = useMemo(
     () => (
-      <Input
-        disabled={data.disabled}
-        value={data.value}
-        placeholder={data.placeholder}
-        onChange={handleChange}
-      />
+      <>
+        <Input
+          disabled={data.disabled}
+          value={data.value}
+          placeholder={data.placeholder}
+          onChange={handleChange}
+        />
+        {data.controls ? "Controls are needs to be here" : ""}
+      </>
     ),
-    [data.disabled, data.placeholder, data.value, handleChange]
+    [data.disabled, data.placeholder, data.value, data.controls, handleChange]
   );
 
   return (
