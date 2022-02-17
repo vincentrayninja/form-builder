@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Button, Row, Col } from "antd";
-import { AiOutlineMessage } from "react-icons/ai";
 import CommentControl from "./CommentControl";
 
 const CellControls = () => {
@@ -15,17 +14,38 @@ const CellControls = () => {
   };
   return (
     <Row align="top" justify="center">
-      <Col span={1}>
+      <Col span={10}>
         <Button
           type="primary"
-          shape="circle"
           size="small"
           onClick={() => controlView(true, false, false)}
         >
-          <AiOutlineMessage />
+          Comment
+        </Button>
+        &nbsp;
+        <Button
+          type="primary"
+          size="small"
+          onClick={() => controlView(false, true, false)}
+        >
+          Action
+        </Button>
+        &nbsp;
+        <Button
+          type="primary"
+          size="small"
+          onClick={() => controlView(false, false, true)}
+        >
+          Attachment
         </Button>
       </Col>
-      <Col span={21}>{control.comment === true ? <CommentControl /> : ""}</Col>
+      <Col span={14}>
+        {control.comment || control.action || control.attachment ? (
+          <CommentControl controls={control} />
+        ) : (
+          ""
+        )}
+      </Col>
     </Row>
   );
 };

@@ -1,8 +1,27 @@
 import React from "react";
-import { Input } from "antd";
-import { FormGroup } from "../Designer/FormGroup";
-const CommentControl = () => {
-  return <Input placeholder="Drop your comment..." />;
+import { Input, Upload, Button } from "antd";
+import { AiOutlineToTop } from "react-icons/ai";
+
+const CommentControl = ({ controls }: any) => {
+  console.log("controls", controls);
+
+  return (
+    <>
+      {controls.attachment ? (
+        <Upload>
+          <Button icon={<AiOutlineToTop />} size="small">
+            &nbsp;Click to Upload
+          </Button>
+        </Upload>
+      ) : (
+        <Input
+          placeholder={`Drop your ${
+            controls.comment ? "comment" : "action"
+          }...`}
+        />
+      )}
+    </>
+  );
 };
 
-export default CommentControl;
+export default React.memo(CommentControl);
