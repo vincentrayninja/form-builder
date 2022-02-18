@@ -300,8 +300,6 @@ export function reducer(state: any, action: ReducerActionProps): CellData {
       }
     }
   } else if (action.type === "SET_CONTROL") {
-    console.log("reducer", action);
-
     setControlValues(copy, action.targetId, action.key, action.value);
   }
   return copy;

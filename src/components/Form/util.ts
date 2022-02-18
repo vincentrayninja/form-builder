@@ -26,7 +26,10 @@ export function getValues(cell: CellData): any {
                 childLane.cellDataList.forEach((listElement: CellData) => {
                   if (listElement.value) {
                     isEmpty = false;
-                    detail[listElement.id] = listElement.value;
+                    detail[listElement.id] = {
+                      value: listElement.value,
+                      controls: listElement?.controlData,
+                    };
                   }
                 });
                 if (!isEmpty) {
@@ -36,7 +39,10 @@ export function getValues(cell: CellData): any {
               });
               break;
             default:
-              result[element.id] = element.value;
+              result[element.id] = {
+                value: element.value,
+                controls: element?.controlData,
+              };
               break;
           }
         });
@@ -229,7 +235,6 @@ export function validateRequired(cellData: CellData): boolean {
   return !cellData.required || cellData.value;
 }
 
-
 export function setControlValues(
   root: CellData,
   id: string,
@@ -257,7 +262,6 @@ export function setControlValues(
                   const row = element.lanes![index];
                   for (const item of row.cellDataList) {
                     if (item.id === id2) {
-                      // item[key] = value;
                       item.controlData = {
                         ...item.controlData,
                         [key]: value,
@@ -266,7 +270,6 @@ export function setControlValues(
                     }
                   }
                 } else {
-                  // element[key] = value;
                   element.controlData = {
                     ...element.controlData,
                     [key]: value,
