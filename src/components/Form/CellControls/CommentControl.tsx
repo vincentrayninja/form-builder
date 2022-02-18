@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Input, Upload, Button } from "antd";
 import { AiOutlineToTop } from "react-icons/ai";
+import { Interactions } from "../hooks/interactions";
+import { InteractContext } from "../util";
+const CommentControl = ({ controls, id }: any) => {
+  const interactions = useContext<Interactions>(InteractContext);
 
-const CommentControl = ({ controls }: any) => {
-  console.log("controls", controls);
-
+  const changeHandler = React.useCallback(
+    (e: any) => {
+      interactions.control(
+        id,
+        controls.comment ? "comment" : "action",
+        e.target.value
+      );
+      // console.log("change handler", e.target.value, interactions);
+    },
+    [controls]
+  );
   return (
     <>
       {controls.attachment ? (
@@ -18,6 +30,7 @@ const CommentControl = ({ controls }: any) => {
           placeholder={`Drop your ${
             controls.comment ? "comment" : "action"
           }...`}
+          onChange={changeHandler}
         />
       )}
     </>

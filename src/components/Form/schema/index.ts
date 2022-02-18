@@ -44,6 +44,10 @@ export interface TabCellData extends LanedCellData {
   tabs: string[];
 }
 
+export interface ControledData extends LanedCellData {
+  control: controlData;
+}
+
 export interface WidgetData {
   type: string;
   icon: JSX.Element;
@@ -61,6 +65,12 @@ export interface LaneData {
   cellDataList: CellData[];
   span?: number;
   hiddenValues?: { [key: string]: CellDataValue };
+}
+
+export interface controlData {
+  comment?: String;
+  action?: String;
+  attachment?: File;
 }
 
 export interface CellLocation {
@@ -165,6 +175,13 @@ export interface DispatchSetProps {
   key: string;
 }
 
+export interface DispatchSetControlProps {
+  type: "SET_CONTROL";
+  targetId: string;
+  value: any;
+  key: string;
+}
+
 export interface DispatchDeleteLaneProps {
   type: "DELETE_LANE";
   parentId: string;
@@ -201,4 +218,5 @@ export type ReducerActionProps =
   | DispatchValidateProps
   | DispatchInitProps
   | DispatchSetOptionProps
+  | DispatchSetControlProps
   | DispatchDeleteLaneProps;

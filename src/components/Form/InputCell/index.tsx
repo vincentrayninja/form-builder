@@ -27,7 +27,7 @@ const InputCell = ({ data, layout, onChange }: CellProps): JSX.Element => {
           placeholder={data.placeholder}
           onChange={handleChange}
         />
-        {data.controls ? <CellControls /> : ""}
+        {data.controls ? <CellControls data={data} /> : ""}
       </>
     ),
     [data.disabled, data.placeholder, data.value, data.controls, handleChange]

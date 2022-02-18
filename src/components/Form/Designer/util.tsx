@@ -4,7 +4,12 @@ import {
   LanedCellData,
   ReducerActionProps,
 } from "../schema";
-import { set, validateFormat, validateRequired } from "../util";
+import {
+  set,
+  validateFormat,
+  validateRequired,
+  setControlValues,
+} from "../util";
 import { DragItem } from "./DnDCell";
 import { CustomCell } from "./Cell";
 import { InputCellData } from "../InputCell/schema";
@@ -294,6 +299,10 @@ export function reducer(state: any, action: ReducerActionProps): CellData {
         message.error(`Delete the last line.`);
       }
     }
+  } else if (action.type === "SET_CONTROL") {
+    console.log("reducer", action);
+
+    setControlValues(copy, action.targetId, action.key, action.value);
   }
   return copy;
 }

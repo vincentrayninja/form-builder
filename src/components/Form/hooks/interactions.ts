@@ -8,6 +8,7 @@ export interface Interactions {
   setOption: (id: string, options: Option[]) => void;
   getValue: (id: string) => any;
   set: (id: string, key: string, value: any) => void;
+  control: (id: string, key: string, value: any) => void;
 }
 
 export default function useInteractions(
@@ -51,5 +52,16 @@ export default function useInteractions(
     },
     [dispatch]
   );
-  return { setValue, setOption, getValue, set };
+  const control = useCallback(
+    (id: string, key: string, value: any) => {
+      dispatch({
+        type: "SET_CONTROL",
+        targetId: id,
+        key,
+        value,
+      });
+    },
+    [dispatch]
+  );
+  return { setValue, setOption, getValue, set, control };
 }

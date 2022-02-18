@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Button, Row, Col } from "antd";
 import CommentControl from "./CommentControl";
 
-const CellControls = () => {
+const CellControls = ({ data }: any) => {
+  // console.log("CellControls", data);
+  const { id } = data;
   let controls = { comment: false, action: false, attachment: false };
   const [control, setControl] = useState(controls);
   const controlView = (
@@ -12,13 +14,15 @@ const CellControls = () => {
   ) => {
     setControl({ comment, action, attachment });
   };
+  const controlCheck = useMemo(() => controlView, [control]);
+
   return (
     <Row align="top" justify="center">
       <Col span={10}>
         <Button
           type="primary"
           size="small"
-          onClick={() => controlView(true, false, false)}
+          onClick={() => controlCheck(true, false, false)}
         >
           Comment
         </Button>
@@ -26,7 +30,7 @@ const CellControls = () => {
         <Button
           type="primary"
           size="small"
-          onClick={() => controlView(false, true, false)}
+          onClick={() => controlCheck(false, true, false)}
         >
           Action
         </Button>
@@ -34,14 +38,14 @@ const CellControls = () => {
         <Button
           type="primary"
           size="small"
-          onClick={() => controlView(false, false, true)}
+          onClick={() => controlCheck(false, false, true)}
         >
           Attachment
         </Button>
       </Col>
       <Col span={14}>
         {control.comment || control.action || control.attachment ? (
-          <CommentControl controls={control} />
+          <CommentControl controls={control} id={id} />
         ) : (
           ""
         )}

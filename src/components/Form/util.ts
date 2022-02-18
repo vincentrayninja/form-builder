@@ -228,3 +228,60 @@ export function validateFormat(cellData: InputCellData): boolean {
 export function validateRequired(cellData: CellData): boolean {
   return !cellData.required || cellData.value;
 }
+
+
+export function setControlValues(
+  root: CellData,
+  id: string,
+  key: string,
+  value: any
+): void {
+  const strings = id.split(".");
+  const id1 = strings[0];
+  const func = function (data: CellData) {
+    if (data.lanes) {
+      for (const lane of data.lanes) {
+        for (const element of lane.cellDataList) {
+          switch (element.type) {
+            case "grid":
+            case "section":
+            case "address":
+            case "tab":
+              func(element);
+              break;
+            default:
+              if (element.id === id1) {
+                if (element.type === "list") {
+                  const index = parseInt(strings[1]);
+                  const id2 = strings[2];
+                  const row = element.lanes![index];
+                  for (const item of row.cellDataList) {
+                    if (item.id === id2) {
+                      // item[key] = value;
+                      item.controlData = {
+                        ...item.controlData,
+                        [key]: value,
+                      };
+                      console.log("Item1", item);
+                      return true;
+                    }
+                  }
+                } else {
+                  // element[key] = value;
+                  element.controlData = {
+                    ...element.controlData,
+                    [key]: value,
+                  };
+                  console.log("Item2", element);
+                  return true;
+                }
+              }
+              break;
+          }
+        }
+      }
+    }
+    return false;
+  };
+  func(root);
+}
