@@ -3,8 +3,7 @@ import { Button, Row, Col } from "antd";
 import CommentControl from "./CommentControl";
 
 const CellControls = ({ data }: any) => {
-  // console.log("CellControls", data);
-  const { id } = data;
+  const { id, controlData } = data;
   let controls = { comment: false, action: false, attachment: false };
   const [control, setControl] = useState(controls);
   const controlView = (
@@ -45,7 +44,11 @@ const CellControls = ({ data }: any) => {
       </Col>
       <Col span={14}>
         {control.comment || control.action || control.attachment ? (
-          <CommentControl controls={control} id={id} />
+          <CommentControl
+            controls={control}
+            controlData={controlData}
+            id={id}
+          />
         ) : (
           ""
         )}

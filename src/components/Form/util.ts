@@ -262,7 +262,6 @@ export function setControlValues(
                         ...item.controlData,
                         [key]: value,
                       };
-                      console.log("Item1", item);
                       return true;
                     }
                   }
@@ -272,7 +271,6 @@ export function setControlValues(
                     ...element.controlData,
                     [key]: value,
                   };
-                  console.log("Item2", element);
                   return true;
                 }
               }
