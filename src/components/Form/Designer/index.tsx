@@ -38,6 +38,7 @@ import useInteractions from "../hooks/interactions";
 import Form from "../index";
 import { InteractContext } from "../util";
 import TabCellConfig from "./Cell/TabCell/TabCellConfig";
+import PageCellConfig from "./Cell/PageCell/PageCellConfig";
 import "./index.css";
 import CheckboxCellConfig from "../CheckboxCell/CheckboxCellConfig";
 import SelectCellConfig from "../SelectCell/SelectCellConfig";
@@ -245,6 +246,8 @@ export const Designer = forwardRef(
                       <AddressCellConfig data={active as LanedCellData} />
                     ) : active.type === "tab" ? (
                       <TabCellConfig data={active as TabCellData} />
+                    ) : active.type === "pages" ? (
+                      <PageCellConfig data={active as TabCellData} />
                     ) : active.type === "datetime" ? (
                       <DateCellConfig data={active} />
                     ) : active.type === "select" ? (

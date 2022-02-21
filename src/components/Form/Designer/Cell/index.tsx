@@ -21,6 +21,7 @@ import { InstanceContext } from "../../index";
 import { Interactions } from "../../hooks/interactions";
 import { InteractContext } from "../../util";
 import { TabCell } from "./TabCell";
+import { PageCell } from "./PageCell";
 import { DesignerContext } from "../index";
 import { TextAreaCell } from "../../TextAreaCell";
 import InputCell from "../../InputCell";
@@ -210,7 +211,7 @@ export const Cell = forwardRef(
           ) : data.type === "switch" ? (
             <SwitchCell {...props} />
           ) : data.type === "pages" ? (
-            <TabCell
+            <PageCell
               {...props}
               data={data as TabCellData}
               customCells={customCells}
