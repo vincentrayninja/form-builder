@@ -2,6 +2,7 @@ import React, { forwardRef, useMemo } from "react";
 import { Input } from "antd";
 import { FormGroup } from "./Designer/FormGroup";
 import { CellProps } from "./schema";
+import CellControls from "./CellControls";
 
 const { TextArea } = Input;
 
@@ -10,13 +11,16 @@ export const TextAreaCell = forwardRef(
     const innerData = { ...data };
     const element = useMemo(
       () => (
-        <TextArea
-          rows={4}
-          value={innerData.value}
-          placeholder={innerData.placeholder}
-          disabled={innerData.disabled}
-          onChange={(event) => onChange(event.target.value)}
-        />
+        <>
+          <TextArea
+            rows={4}
+            value={innerData.value}
+            placeholder={innerData.placeholder}
+            disabled={innerData.disabled}
+            onChange={(event) => onChange(event.target.value)}
+          />
+          {innerData.controls ? <CellControls data={innerData} /> : ""}
+        </>
       ),
       [innerData.disabled, innerData.placeholder, innerData.value, onChange]
     );

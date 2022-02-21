@@ -3,6 +3,7 @@ import { DatePicker } from "antd";
 import { FormGroup } from "../Designer/FormGroup";
 import { CellProps } from "../schema";
 import moment from "moment";
+import CellControls from "../CellControls";
 
 const elementStyle = { width: "100%" };
 
@@ -29,13 +30,16 @@ export const DateCell = forwardRef(
           warnable={data.warnable!}
           label={label}
           element={
-            <DatePicker
-              style={elementStyle}
-              disabled={data.disabled}
-              value={data.value ? moment(data.value) : null}
-              placeholder={data.placeholder}
-              onChange={handleChange}
-            />
+            <>
+              <DatePicker
+                style={elementStyle}
+                disabled={data.disabled}
+                value={data.value ? moment(data.value) : null}
+                placeholder={data.placeholder}
+                onChange={handleChange}
+              />
+              {data.controls ? <CellControls data={data} /> : ""}
+            </>
           }
         />
       </>

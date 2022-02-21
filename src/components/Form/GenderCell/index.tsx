@@ -3,6 +3,7 @@ import { Select } from "antd";
 import { FormGroup } from "../Designer/FormGroup";
 import { CellProps } from "../schema";
 import { GenderCellData } from "./schema";
+import CellControls from "../CellControls";
 
 const { Option } = Select;
 
@@ -32,18 +33,21 @@ export const GenderCell = ({
           data.labeled ? <label title={data.label}>{data.label}</label> : <></>
         }
         element={
-          <Select
-            placeholder={data.placeholder}
-            disabled={data.disabled}
-            style={{ width: "100%" }}
-            onChange={(value) => onChange(value)}
-          >
-            {options.map((option) => (
-              <Option key={option.key} value={option.value}>
-                {option.label}
-              </Option>
-            ))}
-          </Select>
+          <>
+            <Select
+              placeholder={data.placeholder}
+              disabled={data.disabled}
+              style={{ width: "100%" }}
+              onChange={(value) => onChange(value)}
+            >
+              {options.map((option) => (
+                <Option key={option.key} value={option.value}>
+                  {option.label}
+                </Option>
+              ))}
+            </Select>
+            {data.controls ? <CellControls data={data} /> : ""}
+          </>
         }
       />
     </>

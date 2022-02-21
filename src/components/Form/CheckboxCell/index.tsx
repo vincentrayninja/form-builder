@@ -2,6 +2,7 @@ import React from "react";
 import { CellProps } from "../schema";
 import { FormGroup } from "../Designer/FormGroup";
 import { Checkbox } from "antd";
+import CellControls from "../CellControls";
 
 export default function CheckboxCell({
   data,
@@ -21,6 +22,7 @@ export default function CheckboxCell({
               options={data.options}
               onChange={(checkedValues) => onChange(checkedValues)}
             />
+            {data.controls ? <CellControls data={data} /> : ""}
           </>
         }
       />

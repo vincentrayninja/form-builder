@@ -8,6 +8,7 @@ import CellDefaultConfig from "../CellDefaultConfig";
 import { labelCol } from "./constant";
 import CellIdConfig from "../CellIdConfig";
 import CellOnChangeConfig from "../CellOnChangeConfig";
+import CellControlsConfig from "../CellControlsConfig";
 
 interface SelectWrapperCellConfigProps {
   data: CellData;
@@ -25,6 +26,7 @@ export default function DefaultCellConfig({
         <CellLabelConfig data={innerData} />
         <CellRequiredConfig data={data} />
         <CellReadonlyConfig data={data} />
+        <CellControlsConfig data={innerData} />
         <CellDefaultConfig data={data} />
         <CellOnChangeConfig data={data} />
       </Form>

@@ -6,6 +6,7 @@ import CellRequiredConfig from "../CellRequiredConfig";
 import CellReadonlyConfig from "../CellReadonlyConfig";
 import CellIdConfig from "../CellIdConfig";
 import { labelCol } from "../Designer/constant";
+import CellControlsConfig from "../CellControlsConfig";
 
 const { Text } = Typography;
 
@@ -38,6 +39,7 @@ export default function DateCellConfig({
         <CellLabelConfig data={data} />
         <CellRequiredConfig data={data} />
         <CellReadonlyConfig data={data} />
+        <CellControlsConfig data={data} />
         <Form.Item label={"Default"}>
           <AutoComplete
             onSearch={(searchText) => {
