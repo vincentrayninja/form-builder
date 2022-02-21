@@ -37,6 +37,7 @@ export const DndLane = function ({
       "instance",
       "label",
       "tab",
+      "pages",
       ...(customCells || []).map((item) => item.type),
     ],
     drop: (item: any, monitor) => {

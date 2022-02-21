@@ -18,6 +18,9 @@ export function getValues(cell: CellData): any {
             case "tab":
               func(element);
               break;
+            case "pages":
+              func(element);
+              break;
             case "list":
               result[element.id] = [];
               (element as LanedCellData).lanes.forEach((childLane) => {
@@ -72,6 +75,9 @@ export function getValue(root: CellData, id: string): any | any[] {
             case "section":
             case "address":
             case "tab":
+              func(element);
+              break;
+            case "pages":
               func(element);
               break;
             default:
@@ -129,6 +135,9 @@ export function set(root: CellData, id: string, key: string, value: any): void {
             case "tab":
               func(element);
               break;
+            case "pages":
+              func(element);
+              break;
             default:
               if (element.id === id1) {
                 if (element.type === "list") {
@@ -176,6 +185,7 @@ export function setData(root: CellData, form: any): void {
         item.type !== "grid" &&
         item.type !== "section" &&
         item.type !== "address" &&
+        item.type !== "pages" &&
         item.type !== "tab"
       ) {
         cellData.value = value ? formatValue(value, cellData.type) : null;
@@ -252,6 +262,9 @@ export function setControlValues(
             case "section":
             case "address":
             case "tab":
+              func(element);
+              break;
+            case "pages":
               func(element);
               break;
             default:

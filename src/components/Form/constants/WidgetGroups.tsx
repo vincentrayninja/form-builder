@@ -9,6 +9,7 @@ import {
   AiOutlineBorderVerticle,
   AiOutlineMan,
   AiTwotoneEnvironment,
+  AiFillCopy,
 } from "react-icons/ai";
 import React from "react";
 import { WidgetData } from "../schema";
@@ -54,6 +55,7 @@ export const WidgetGroups: { name: string; widgets: WidgetData[] }[] = [
     widgets: [
       { type: "grid", icon: <AiOutlineTable />, name: "Grid" },
       { type: "tab", icon: <AiOutlineTable />, name: "Tab" },
+      { type: "pages", icon: <AiFillCopy />, name: "Multi Page" },
       {
         type: "list",
         icon: <AiOutlineOrderedList />,

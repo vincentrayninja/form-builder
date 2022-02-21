@@ -209,6 +209,12 @@ export const Cell = forwardRef(
             <LabelCell {...props} />
           ) : data.type === "switch" ? (
             <SwitchCell {...props} />
+          ) : data.type === "pages" ? (
+            <TabCell
+              {...props}
+              data={data as TabCellData}
+              customCells={customCells}
+            />
           ) : data.type === "tab" ? (
             <TabCell
               {...props}

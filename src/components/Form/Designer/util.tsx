@@ -77,6 +77,7 @@ export function forEach(
             cellData.type === "section" ||
             cellData.type === "address" ||
             cellData.type === "list" ||
+            cellData.type === "pages" ||
             cellData.type === "tab"
           ) {
             recursion(cellData);
@@ -139,6 +140,7 @@ export function locate(
             cellData.type === "section" ||
             cellData.type === "address" ||
             cellData.type === "list" ||
+            cellData.type === "pages" ||
             cellData.type === "tab"
           ) {
             func(cellData);
@@ -180,6 +182,7 @@ export function getCellDataList(
             cellData.type === "section" ||
             cellData.type === "address" ||
             cellData.type === "list" ||
+            cellData.type === "pages" ||
             cellData.type === "tab"
           ) {
             if (cellData.id === parentId) {
@@ -352,6 +355,12 @@ export function createBasicWidgetInstance(type: string): CellData {
     cellData.lanes = [{ span: 24, cellDataList: [] }];
   } else if (cellData.type === "address") {
     cellData.lanes = [{ span: 24, cellDataList: [] }];
+  } else if (cellData.type === "pages") {
+    cellData.lanes = [
+      { span: 24, cellDataList: [] },
+      { span: 0, cellDataList: [] },
+    ];
+    cellData.tabs = ["Page 1", "Page 2"];
   } else if (cellData.type === "tab") {
     cellData.lanes = [
       { span: 24, cellDataList: [] },

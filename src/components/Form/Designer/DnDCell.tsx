@@ -62,6 +62,7 @@ export const DnDCell = function ({
       "address",
       "list",
       "label",
+      "pages",
       "tab",
       ...(customCells || []).map((item) => item.type),
     ],
