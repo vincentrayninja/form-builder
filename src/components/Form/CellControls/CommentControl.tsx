@@ -16,10 +16,27 @@ const CommentControl = ({ controls, id, controlData }: any) => {
     },
     [controls, id, interactions]
   );
+
+  const uploadHandler = React.useCallback(
+    (info: any) => {
+      let fileList = [...info.fileList];
+      fileList = fileList.slice(-5);
+      fileList.forEach(function (file, index) {
+        let reader = new FileReader();
+        reader.onload = (e) => {
+          file.base64 = e?.target?.result;
+          interactions.control(id, "attachment", file.base64);
+        };
+        reader.readAsDataURL(file.originFileObj);
+      });
+      return true;
+    },
+    [controls, id, interactions]
+  );
   return (
     <>
       {controls.attachment ? (
-        <Upload>
+        <Upload onChange={uploadHandler}>
           <Button icon={<AiOutlineToTop />} size="small">
             &nbsp;Click to Upload
           </Button>
