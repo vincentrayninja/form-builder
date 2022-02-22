@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { DesignerContext } from "../../index";
 import update from "immutability-helper";
 import { InstanceContext } from "../../../index";
-
+import { AiOutlineDoubleLeft, AiOutlineDoubleRight } from "react-icons/ai";
 interface PageCellProps {
   data: LanedCellData;
   customCells?: CustomCell[];
@@ -58,33 +58,71 @@ export const PageCell = ({ data, customCells }: PageCellProps): JSX.Element => {
     },
     [data, dispatch]
   );
+
   return (
     <>
       <Tabs>
         {data.lanes?.map((lane, index) => {
           if (index === tabIndex) {
-            return <ActiveTab>{index + 1}</ActiveTab>;
+            return (
+              <>
+                {tabIndex > 0 ? (
+                  <Tab key={index} onClick={() => handleSwitch(tabIndex - 1)}>
+                    <AiOutlineDoubleLeft />
+                  </Tab>
+                ) : (
+                  <></>
+                )}
+                <ActiveTab>{index + 1}</ActiveTab>
+                {data.lanes?.length > tabIndex + 1 ? (
+                  <Tab key={index} onClick={() => handleSwitch(tabIndex + 1)}>
+                    <AiOutlineDoubleRight />
+                  </Tab>
+                ) : (
+                  <></>
+                )}
+              </>
+            );
           }
-          return (
-            <Tab key={index} onClick={() => handleSwitch(index)}>
-              {index + 1}
-            </Tab>
-          );
         })}
       </Tabs>
+
       <Pool cellData={data} customCells={customCells} />
-      <Tabs>
-        {data.lanes?.map((lane, index) => {
-          if (index === tabIndex) {
-            return <ActiveTab>{index + 1}</ActiveTab>;
-          }
-          return (
-            <Tab key={index} onClick={() => handleSwitch(index)}>
-              {index + 1}
-            </Tab>
-          );
-        })}
-      </Tabs>
+      <TabComponent
+        data={data}
+        tabIndex={tabIndex}
+        handleSwitch={handleSwitch}
+      />
     </>
   );
 };
+
+function TabComponent({ data, tabIndex, handleSwitch }: any) {
+  return (
+    <Tabs>
+      {data.lanes?.map((lane = "", index: any) => {
+        if (index === tabIndex) {
+          return (
+            <>
+              {tabIndex > 0 ? (
+                <Tab key={index} onClick={() => handleSwitch(tabIndex - 1)}>
+                  <AiOutlineDoubleLeft />
+                </Tab>
+              ) : (
+                <></>
+              )}
+              <ActiveTab>{index + 1}</ActiveTab>
+              {data.lanes?.length > tabIndex + 1 ? (
+                <Tab key={index} onClick={() => handleSwitch(tabIndex + 1)}>
+                  <AiOutlineDoubleRight />
+                </Tab>
+              ) : (
+                <></>
+              )}
+            </>
+          );
+        }
+      })}
+    </Tabs>
+  );
+}
