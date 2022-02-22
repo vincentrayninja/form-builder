@@ -78,7 +78,7 @@ export default function PageCellConfig({
             onClick={() => {
               const copy = { ...data };
               copy.lanes!.push({ cellDataList: [], span: 0 });
-              copy.tabs?.push("NewTab");
+              copy.tabs?.push("NewPage");
               designerDispatch({
                 type: "UPDATE",
                 data: copy,

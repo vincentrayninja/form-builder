@@ -13,19 +13,23 @@ interface PageCellProps {
 }
 
 const Tab = styled("div")`
-  display: inline-block;
-  padding: 10px 20px;
+  /* display: inline-block; */
+  padding: 5px 10px;
   font-weight: bold;
   min-width: 40px;
   text-align: center;
   cursor: pointer;
+  border: 1px solid #bdbcbc;
 `;
 const ActiveTab = styled(Tab)`
-  border-bottom: 2px solid darkgreen;
-  color: orangered;
+  /* border-bottom: 2px solid darkgreen; */
+  background-color: #00c3ff97;
+  color: white;
 `;
 const Tabs = styled("div")`
-  border-bottom: 1px solid #d3d3d3;
+  /* border-bottom: 1px solid #d3d3d3; */
+  display: flex;
+  justify-content: center;
 `;
 
 export const PageCell = ({ data, customCells }: PageCellProps): JSX.Element => {
@@ -59,16 +63,28 @@ export const PageCell = ({ data, customCells }: PageCellProps): JSX.Element => {
       <Tabs>
         {data.lanes?.map((lane, index) => {
           if (index === tabIndex) {
-            return <ActiveTab>{data.tabs[index]}</ActiveTab>;
+            return <ActiveTab>{index + 1}</ActiveTab>;
           }
           return (
             <Tab key={index} onClick={() => handleSwitch(index)}>
-              {data.tabs[index]}
+              {index + 1}
             </Tab>
           );
         })}
       </Tabs>
       <Pool cellData={data} customCells={customCells} />
+      <Tabs>
+        {data.lanes?.map((lane, index) => {
+          if (index === tabIndex) {
+            return <ActiveTab>{index + 1}</ActiveTab>;
+          }
+          return (
+            <Tab key={index} onClick={() => handleSwitch(index)}>
+              {index + 1}
+            </Tab>
+          );
+        })}
+      </Tabs>
     </>
   );
 };
