@@ -14,23 +14,38 @@ interface PageCellProps {
 
 const Tab = styled("div")`
   /* display: inline-block; */
-  padding: 5px 10px;
+  padding: 10px 10px 10px 10px;
   font-weight: bold;
-  min-width: 40px;
+  /* min-width: 40px; */
+  height: 40px;
+  width: 40px;
   text-align: center;
   cursor: pointer;
   border: 1px solid #bdbcbc;
+  border-radius: 50%;
+  margin: 2px;
 `;
 const ActiveTab = styled(Tab)`
   /* border-bottom: 2px solid darkgreen; */
-  background-color: #00c3ff97;
+  background-color: #00c3ffe1;
   color: white;
 `;
 const Tabs = styled("div")`
   /* border-bottom: 1px solid #d3d3d3; */
   display: flex;
   justify-content: center;
+  align-items: center;
 `;
+
+const IndexName = styled("p")`
+  position: relative;
+  top: -3px;
+`;
+
+const disable = {
+  backgroundColor: "#d1ceceb2",
+  cursor: "not-allowed",
+};
 
 export const PageCell = ({ data, customCells }: PageCellProps): JSX.Element => {
   const designerDispatch = useContext(DesignerContext);
@@ -61,31 +76,11 @@ export const PageCell = ({ data, customCells }: PageCellProps): JSX.Element => {
 
   return (
     <>
-      <Tabs>
-        {data.lanes?.map((lane, index) => {
-          if (index === tabIndex) {
-            return (
-              <>
-                {tabIndex > 0 ? (
-                  <Tab key={index} onClick={() => handleSwitch(tabIndex - 1)}>
-                    <AiOutlineDoubleLeft />
-                  </Tab>
-                ) : (
-                  <></>
-                )}
-                <ActiveTab>{index + 1}</ActiveTab>
-                {data.lanes?.length > tabIndex + 1 ? (
-                  <Tab key={index} onClick={() => handleSwitch(tabIndex + 1)}>
-                    <AiOutlineDoubleRight />
-                  </Tab>
-                ) : (
-                  <></>
-                )}
-              </>
-            );
-          }
-        })}
-      </Tabs>
+      <TabComponent
+        data={data}
+        tabIndex={tabIndex}
+        handleSwitch={handleSwitch}
+      />
 
       <Pool cellData={data} customCells={customCells} />
       <TabComponent
@@ -109,15 +104,21 @@ function TabComponent({ data, tabIndex, handleSwitch }: any) {
                   <AiOutlineDoubleLeft />
                 </Tab>
               ) : (
-                <></>
+                <Tab key={index} style={disable}>
+                  <AiOutlineDoubleLeft />
+                </Tab>
               )}
-              <ActiveTab>{index + 1}</ActiveTab>
+              <ActiveTab>
+                <IndexName>{index + 1}</IndexName>
+              </ActiveTab>
               {data.lanes?.length > tabIndex + 1 ? (
                 <Tab key={index} onClick={() => handleSwitch(tabIndex + 1)}>
                   <AiOutlineDoubleRight />
                 </Tab>
               ) : (
-                <></>
+                <Tab key={index} style={disable}>
+                  <AiOutlineDoubleRight />
+                </Tab>
               )}
             </>
           );
