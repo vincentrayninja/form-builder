@@ -47,6 +47,12 @@ const disable = {
   cursor: "not-allowed",
 };
 
+const PageHeader = styled("p")`
+  border-bottom: 1px solid #c0c0c0;
+  margin: 10px 10px 2px 10px;
+  font-weight: bold;
+`;
+
 export const PageCell = ({ data, customCells }: PageCellProps): JSX.Element => {
   const designerDispatch = useContext(DesignerContext);
   const instanceDispatch = useContext(InstanceContext);
@@ -81,7 +87,7 @@ export const PageCell = ({ data, customCells }: PageCellProps): JSX.Element => {
         tabIndex={tabIndex}
         handleSwitch={handleSwitch}
       />
-
+      <PageHeader>{data.tabs[tabIndex]}</PageHeader>
       <Pool cellData={data} customCells={customCells} />
       <TabComponent
         data={data}
@@ -95,7 +101,7 @@ export const PageCell = ({ data, customCells }: PageCellProps): JSX.Element => {
 function TabComponent({ data, tabIndex, handleSwitch }: any) {
   return (
     <Tabs>
-      {data.lanes?.map((lane = "", index: any) => {
+      {data.lanes?.map((lane: Object, index: any) => {
         if (index === tabIndex) {
           return (
             <>
