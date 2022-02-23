@@ -89,6 +89,8 @@ export interface ConstrainViolation {
 export interface CellProps {
   data: CellData;
   layout?: "vertical" | "horizontal";
+  register?: any;
+  control?: any;
   onChange: (value: CellDataValue, valueObject?: CellDataValueObject) => void;
 }
 

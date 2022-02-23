@@ -7,14 +7,21 @@ interface SectionCellProps {
   data: LanedCellData;
   direction?: "horizontal" | "vertical";
   customCells?: CustomCell[];
+  control?: any;
 }
 
 export const SectionCell = ({
-  data,
-  direction,
-  customCells,
-}: SectionCellProps): JSX.Element => {
-  return (
-    <Pool cellData={data} direction={direction} customCells={customCells} />
-  );
-};
+         data,
+         direction,
+         customCells,
+         control,
+       }: SectionCellProps): JSX.Element => {
+         return (
+           <Pool
+             control={control}
+             cellData={data}
+             direction={direction}
+             customCells={customCells}
+           />
+         );
+       };

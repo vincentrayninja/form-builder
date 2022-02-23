@@ -7,14 +7,21 @@ interface GridCellProps {
   data: LanedCellData;
   direction?: "horizontal" | "vertical";
   customCells?: CustomCell[];
+  control?: any;
 }
 
 export const GridCell = ({
-  data,
-  direction,
-  customCells,
-}: GridCellProps): JSX.Element => {
-  return (
-    <Pool cellData={data} direction={direction} customCells={customCells} />
-  );
-};
+         data,
+         direction,
+         customCells,
+         control,
+       }: GridCellProps): JSX.Element => {
+         return (
+           <Pool
+             cellData={data}
+             direction={direction}
+             customCells={customCells}
+             control={control}
+           />
+         );
+       };
