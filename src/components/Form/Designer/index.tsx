@@ -49,7 +49,7 @@ import InputCellConfig from "../InputCell/InputCellConfig";
 import { InputCellData } from "../InputCell/schema";
 import { SelectCellData } from "../SelectCell/schema";
 import { GenderCellData } from "../GenderCell/schema";
-
+import { useForm, SubmitHandler } from "react-hook-form";
 const rootCellData: CellData = {
   type: "grid",
   id: "11270307",
@@ -105,6 +105,15 @@ export const Designer = forwardRef(
     }: DesignerProps,
     ref: Ref<IEntityFormDesigner>
   ) => {
+    const {
+      control,
+      register,
+      handleSubmit,
+      watch,
+      formState: { errors },
+    } = useForm<any>();
+
+    const onSubmit: SubmitHandler<any> = (data) => console.log("data", data);
     const [data, designerDispatch] = useReducer(
       reducer,
       defaultCellData || rootCellData
@@ -314,14 +323,17 @@ export const Designer = forwardRef(
           ]}
         >
           {previewData && (
-            <Form
-              customCells={customCells}
-              ref={previewRef}
-              data={cloneAndForEach(previewData, (data) => {
-                data.value = data.defaultValue || data.value;
-              })}
-              key={previewData.id}
-            />
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Form
+                control={control}
+                customCells={customCells}
+                ref={previewRef}
+                data={cloneAndForEach(previewData, (data) => {
+                  data.value = data.defaultValue || data.value;
+                })}
+                key={previewData.id}
+              />
+            </form>
           )}
         </Modal>
       </>

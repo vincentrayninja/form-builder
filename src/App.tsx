@@ -23,7 +23,6 @@ function App() {
       {/* <h2>Form example</h2> */}
       <div style={{ border: "1px solid #d3d3d3", padding: 20, width: "100%" }}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <input {...register("myname")} />
           <Form
             register={register}
             control={control}

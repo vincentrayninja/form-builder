@@ -10,6 +10,7 @@ import { InstanceContext } from "../../../index";
 interface TabCellProps {
   data: LanedCellData;
   customCells?: CustomCell[];
+  control?: any;
 }
 
 const Tab = styled("div")`
@@ -28,7 +29,7 @@ const Tabs = styled("div")`
   border-bottom: 1px solid #d3d3d3;
 `;
 
-export const TabCell = ({ data, customCells }: TabCellProps): JSX.Element => {
+export const TabCell = ({ data, customCells, control }: TabCellProps): JSX.Element => {
   const designerDispatch = useContext(DesignerContext);
   const instanceDispatch = useContext(InstanceContext);
   const isDesigner = instanceDispatch === null;
@@ -68,7 +69,7 @@ export const TabCell = ({ data, customCells }: TabCellProps): JSX.Element => {
           );
         })}
       </Tabs>
-      <Pool cellData={data} customCells={customCells} />
+      <Pool cellData={data} customCells={customCells} control={control} />
     </>
   );
 };

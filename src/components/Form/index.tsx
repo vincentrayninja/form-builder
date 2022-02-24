@@ -26,7 +26,6 @@ export interface InstanceProps {
 export const InstanceContext = React.createContext<any>(null);
 const Form = forwardRef(
   ({ data, customCells, register, control }: InstanceProps, ref: any) => {
-    console.log("sdfsdf1111", control);
     const [innerData, dispatch] = useReducer(reducer, data);
     useImperativeHandle(ref, () => ({
       getData: function () {

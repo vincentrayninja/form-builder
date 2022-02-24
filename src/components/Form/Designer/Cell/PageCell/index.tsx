@@ -10,6 +10,7 @@ import { AiOutlineDoubleLeft, AiOutlineDoubleRight } from "react-icons/ai";
 interface PageCellProps {
   data: LanedCellData;
   customCells?: CustomCell[];
+  control?: any;
 }
 
 const Tab = styled("div")`
@@ -53,50 +54,58 @@ const PageHeader = styled("p")`
   font-weight: bold;
 `;
 
-export const PageCell = ({ data, customCells }: PageCellProps): JSX.Element => {
-  const designerDispatch = useContext(DesignerContext);
-  const instanceDispatch = useContext(InstanceContext);
-  const isDesigner = instanceDispatch === null;
-  const dispatch = !isDesigner ? instanceDispatch : designerDispatch;
-  const [tabIndex, setTabIndex] = useState<number>(
-    data.lanes.findIndex((item) => item.span === 24)
-  );
-  const handleSwitch = useCallback(
-    (index) => {
-      setTabIndex(index);
-      dispatch({
-        type: "UPDATE",
-        data: update(data, {
-          lanes: {
-            $apply: (x: LaneData[] | undefined): LaneData[] =>
-              (x || []).map((y) => ({
-                ...y,
-                span: data.lanes?.indexOf(y) === index ? 24 : 0,
-              })),
-          },
-        }),
-      });
-    },
-    [data, dispatch]
-  );
+export const PageCell = ({
+         data,
+         customCells,
+         control,
+       }: PageCellProps): JSX.Element => {
+         const designerDispatch = useContext(DesignerContext);
+         const instanceDispatch = useContext(InstanceContext);
+         const isDesigner = instanceDispatch === null;
+         const dispatch = !isDesigner ? instanceDispatch : designerDispatch;
+         const [tabIndex, setTabIndex] = useState<number>(
+           data.lanes.findIndex((item) => item.span === 24)
+         );
+         const handleSwitch = useCallback(
+           (index) => {
+             setTabIndex(index);
+             dispatch({
+               type: "UPDATE",
+               data: update(data, {
+                 lanes: {
+                   $apply: (x: LaneData[] | undefined): LaneData[] =>
+                     (x || []).map((y) => ({
+                       ...y,
+                       span: data.lanes?.indexOf(y) === index ? 24 : 0,
+                     })),
+                 },
+               }),
+             });
+           },
+           [data, dispatch]
+         );
 
-  return (
-    <>
-      <TabComponent
-        data={data}
-        tabIndex={tabIndex}
-        handleSwitch={handleSwitch}
-      />
-      <PageHeader>{data.tabs[tabIndex]}</PageHeader>
-      <Pool cellData={data} customCells={customCells} />
-      <TabComponent
-        data={data}
-        tabIndex={tabIndex}
-        handleSwitch={handleSwitch}
-      />
-    </>
-  );
-};
+         return (
+           <>
+             <TabComponent
+               data={data}
+               tabIndex={tabIndex}
+               handleSwitch={handleSwitch}
+             />
+             <PageHeader>{data.tabs[tabIndex]}</PageHeader>
+             <Pool
+               cellData={data}
+               customCells={customCells}
+               control={control}
+             />
+             <TabComponent
+               data={data}
+               tabIndex={tabIndex}
+               handleSwitch={handleSwitch}
+             />
+           </>
+         );
+       };
 
 function TabComponent({ data, tabIndex, handleSwitch }: any) {
   return (

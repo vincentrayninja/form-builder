@@ -39,106 +39,111 @@ export const Pool = forwardRef(
            }: PoolProps,
            ref: any
          ) => {
-           const { Panel } = Collapse;
-           const instanceDispatch = useContext(InstanceContext);
-           const isDesigner = instanceDispatch === null;
-           const getLane = useCallback(
-             (lane: LaneData, index: number) => {
-               const props = {
-                 key: `${cellData.id}-${index}`,
-                 direction: direction,
-                 cellDataList: lane.cellDataList,
-                 location: {
-                   parentId: cellData.id,
-                   index: index,
-                 },
-                 span: lane.span,
-                 customCells: customCells,
-               };
-               return isDesigner ? (
-                 <DndLane {...props} />
-               ) : (
-                 <Lane {...props} control={control} />
-               );
-             },
-             [cellData.id, customCells, direction, isDesigner]
-           );
-           console.log("cellData", cellData);
-           const lanes = useMemo(
-             () => cellData.lanes.map((lane, index) => getLane(lane, index)),
-             [cellData.lanes, getLane]
-           );
+                const { Panel } = Collapse;
+                const instanceDispatch = useContext(InstanceContext);
+                const isDesigner = instanceDispatch === null;
+                const getLane = useCallback(
+                  (lane: LaneData, index: number) => {
+                    const props = {
+                      key: `${cellData.id}-${index}`,
+                      direction: direction,
+                      cellDataList: lane.cellDataList,
+                      location: {
+                        parentId: cellData.id,
+                        index: index,
+                      },
+                      span: lane.span,
+                      customCells: customCells,
+                    };
+                    return isDesigner ? (
+                      <DndLane {...props} />
+                    ) : (
+                      <Lane {...props} control={control} />
+                    );
+                  },
+                  [cellData.id, customCells, direction, isDesigner]
+                );
+                //  console.log("cellData", cellData);
+                const lanes = useMemo(
+                  () =>
+                    cellData.lanes.map((lane, index) => getLane(lane, index)),
+                  [cellData.lanes, getLane]
+                );
 
-           return (
-             <>
-               <Collapse accordion>
-                 <Panel header={cellData.label} key={cellData.id}>
-                   <Row ref={ref} className={"lanes"}>
-                     {direction === "horizontal" ? (
-                       <>{lanes}</>
-                     ) : (
-                       <FormGroup
-                         required={!!cellData.required}
-                         warning={cellData.warning}
-                         warnable={cellData.warnable}
-                         element={
-                           <>
-                             {!isDesigner && (
-                               <InstanceListHeaderItem span={24}>
-                                 {cellData.lanes[0].cellDataList.map((item) => (
-                                   <div
-                                     style={{ width: item.width }}
-                                     key={item.id}
-                                   >
-                                     {item.required && (
-                                       <span style={{ color: "red" }}>*</span>
-                                     )}
-                                     <span>{item.label}</span>
-                                   </div>
-                                 ))}
-                               </InstanceListHeaderItem>
-                             )}
-                             {lanes}
-                             {!isDesigner && direction === "vertical" && (
-                               <Button
-                                 size={"small"}
-                                 onClick={() =>
-                                   instanceDispatch({
-                                     type: "UPDATE",
-                                     data: update(cellData, {
-                                       lanes: {
-                                         $push: [
-                                           update(cellData.lanes[0], {
-                                             cellDataList: {
-                                               $apply: (x: CellData[]) =>
-                                                 x.map((y) => ({
-                                                   ...y,
-                                                   value: null,
-                                                 })),
-                                             },
-                                             hiddenValues: {
-                                               $apply: () => ({}),
-                                             },
-                                           }),
-                                         ],
-                                       },
-                                     }),
-                                   })
-                                 }
-                                 type={"link"}
-                               >
-                                 Add Line
-                               </Button>
-                             )}
-                           </>
-                         }
-                         label={<span>{cellData.label}</span>}
-                       />
-                     )}
-                   </Row>{" "}
-                 </Panel>
-               </Collapse>
-             </>
-           );
-         }
+                return (
+                  <>
+                    <Collapse accordion>
+                      <Panel header={cellData.label} key={cellData.id}>
+                        <Row ref={ref} className={"lanes"}>
+                          {direction === "horizontal" ? (
+                            <>{lanes}</>
+                          ) : (
+                            <FormGroup
+                              required={!!cellData.required}
+                              warning={cellData.warning}
+                              warnable={cellData.warnable}
+                              element={
+                                <>
+                                  {!isDesigner && (
+                                    <InstanceListHeaderItem span={24}>
+                                      {cellData.lanes[0].cellDataList.map(
+                                        (item) => (
+                                          <div
+                                            style={{ width: item.width }}
+                                            key={item.id}
+                                          >
+                                            {item.required && (
+                                              <span style={{ color: "red" }}>
+                                                *
+                                              </span>
+                                            )}
+                                            <span>{item.label}</span>
+                                          </div>
+                                        )
+                                      )}
+                                    </InstanceListHeaderItem>
+                                  )}
+                                  {lanes}
+                                  {!isDesigner && direction === "vertical" && (
+                                    <Button
+                                      size={"small"}
+                                      onClick={() =>
+                                        instanceDispatch({
+                                          type: "UPDATE",
+                                          data: update(cellData, {
+                                            lanes: {
+                                              $push: [
+                                                update(cellData.lanes[0], {
+                                                  cellDataList: {
+                                                    $apply: (x: CellData[]) =>
+                                                      x.map((y) => ({
+                                                        ...y,
+                                                        value: null,
+                                                      })),
+                                                  },
+                                                  hiddenValues: {
+                                                    $apply: () => ({}),
+                                                  },
+                                                }),
+                                              ],
+                                            },
+                                          }),
+                                        })
+                                      }
+                                      type={"link"}
+                                    >
+                                      Add Line
+                                    </Button>
+                                  )}
+                                </>
+                              }
+                              label={<span>{cellData.label}</span>}
+                            />
+                          )}
+                        </Row>{" "}
+                      </Panel>
+                    </Collapse>
+                  </>
+                );
+              }
        );

@@ -4,11 +4,12 @@ import { FormGroup } from "../Designer/FormGroup";
 import { CellProps } from "../schema";
 import moment from "moment";
 import CellControls from "../CellControls";
+import { Controller } from "react-hook-form";
 
 const elementStyle = { width: "100%" };
 
 export const DateCell = forwardRef(
-  ({ data, layout, onChange }: CellProps, ref: any) => {
+  ({ data, layout, onChange, control }: CellProps, ref: any) => {
     const handleChange = useCallback(
       (date) => onChange(date ? date.format("YYYY-MM-DD HH:mm:ss") : null),
       [onChange]
@@ -30,16 +31,41 @@ export const DateCell = forwardRef(
           warnable={data.warnable!}
           label={label}
           element={
-            <>
-              <DatePicker
-                style={elementStyle}
-                disabled={data.disabled}
-                value={data.value ? moment(data.value) : null}
-                placeholder={data.placeholder}
-                onChange={handleChange}
+            control !== undefined ? (
+              <Controller
+                name={data.id as any}
+                control={control}
+                render={({ field }) => (
+                  <>
+                    <DatePicker
+                      {...field}
+                      style={elementStyle}
+                      disabled={data.disabled}
+                      value={data.value ? moment(data.value) : null}
+                      placeholder={data.placeholder}
+                      onChange={(e) => {
+                        handleChange(e);
+                        field.onChange(
+                          e ? e.format("YYYY-MM-DD HH:mm:ss") : null
+                        );
+                      }}
+                    />
+                    {data.controls ? <CellControls data={data} /> : ""}
+                  </>
+                )}
               />
-              {data.controls ? <CellControls data={data} /> : ""}
-            </>
+            ) : (
+              <>
+                <DatePicker
+                  style={elementStyle}
+                  disabled={data.disabled}
+                  value={data.value ? moment(data.value) : null}
+                  placeholder={data.placeholder}
+                  onChange={handleChange}
+                />
+                {data.controls ? <CellControls data={data} /> : ""}
+              </>
+            )
           }
         />
       </>

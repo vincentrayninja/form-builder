@@ -11,8 +11,6 @@ const InputCell = ({
   onChange,
   control,
 }: CellProps): JSX.Element => {
-  console.log("sdfsdzf", control);
-  // const { control } = useForm();
   const label = useMemo(
     () =>
       data.labeled ? <label title={data.label}>{data.label}</label> : <></>,
@@ -27,26 +25,40 @@ const InputCell = ({
   );
   // console.log("data.id", typeof data);
   const element = useMemo(
-    () => (
-      <>
+    () =>
+      control === undefined ? (
+        <>
+          <Input
+            disabled={data.disabled}
+            value={data.value}
+            placeholder={data.placeholder}
+            onChange={handleChange}
+          />
+
+          {data.controls ? <CellControls data={data} /> : ""}
+        </>
+      ) : (
         <Controller
-          name={`${data.id}` as any}
-          defaultValue={data.value}
+          name={data.id as any}
           control={control}
           render={({ field }) => (
-            <Input
-              {...field}
-              disabled={data.disabled}
-              value={data.value}
-              placeholder={data.placeholder}
-              onChange={handleChange}
-            />
+            <>
+              <Input
+                {...field}
+                disabled={data.disabled}
+                value={data.value}
+                placeholder={data.placeholder}
+                onChange={(e) => {
+                  handleChange(e);
+                  field.onChange(e);
+                }}
+              />
+
+              {data.controls ? <CellControls data={data} /> : ""}
+            </>
           )}
         />
-
-        {data.controls ? <CellControls data={data} /> : ""}
-      </>
-    ),
+      ),
     [data.disabled, data.placeholder, data.value, data.controls, handleChange]
   );
 

@@ -3,25 +3,47 @@ import { Input } from "antd";
 import { FormGroup } from "./Designer/FormGroup";
 import { CellProps } from "./schema";
 import CellControls from "./CellControls";
-
+import { Controller } from "react-hook-form";
 const { TextArea } = Input;
 
 export const TextAreaCell = forwardRef(
-  ({ data, layout, onChange }: CellProps, ref: any) => {
+  ({ data, layout, onChange, control }: CellProps, ref: any) => {
     const innerData = { ...data };
     const element = useMemo(
-      () => (
-        <>
-          <TextArea
-            rows={4}
-            value={innerData.value}
-            placeholder={innerData.placeholder}
-            disabled={innerData.disabled}
-            onChange={(event) => onChange(event.target.value)}
+      () =>
+        control === undefined ? (
+          <>
+            <TextArea
+              rows={4}
+              value={innerData.value}
+              placeholder={innerData.placeholder}
+              disabled={innerData.disabled}
+              onChange={(event) => onChange(event.target.value)}
+            />
+            {innerData.controls ? <CellControls data={innerData} /> : ""}
+          </>
+        ) : (
+          <Controller
+            name={innerData.id as any}
+            control={control}
+            render={({ field }) => (
+              <>
+                <TextArea
+                  {...field}
+                  rows={4}
+                  value={innerData.value}
+                  placeholder={innerData.placeholder}
+                  disabled={innerData.disabled}
+                  onChange={(event) => {
+                    onChange(event.target.value);
+                    field.onChange(event.target.value);
+                  }}
+                />
+                {innerData.controls ? <CellControls data={innerData} /> : ""}
+              </>
+            )}
           />
-          {innerData.controls ? <CellControls data={innerData} /> : ""}
-        </>
-      ),
+        ),
       [innerData.disabled, innerData.placeholder, innerData.value, onChange]
     );
     return (

@@ -73,197 +73,209 @@ export const Cell = forwardRef(
            }: CellProps,
            ref: any
          ) => {
-           // todo: should prevent from remove required cell
-    console.log("Sdfs22222", control);
-           const instanceDispatch = useContext(InstanceContext);
-           const designerDispatch = useContext(DesignerContext);
-           const data = useMemo(
-             (): CellData => ({
-               required: false,
-               warnable: false,
-               layout: "default",
-               labeled: true,
-               ...cellData,
-             }),
-             [cellData]
-           );
-           const interactions = useContext<Interactions>(InteractContext);
-           const onChange = useCallback(
-             (value: unknown, valueObject: any) => {
-               const targetId =
-                 location && layout === "vertical"
-                   ? `${location.parentId}.${location.index}.${data.id}`
-                   : data.id;
-               const command: DispatchSetValueProps = {
-                 type: "SET_VALUE",
-                 targetId,
-                 value: value,
-               };
-               if (instanceDispatch) {
-                 instanceDispatch(command);
-               } else {
-                 designerDispatch(command);
-               }
+                // todo: should prevent from remove required cell
+                const instanceDispatch = useContext(InstanceContext);
+                const designerDispatch = useContext(DesignerContext);
+                const data = useMemo(
+                  (): CellData => ({
+                    required: false,
+                    warnable: false,
+                    layout: "default",
+                    labeled: true,
+                    ...cellData,
+                  }),
+                  [cellData]
+                );
+                const interactions = useContext<Interactions>(InteractContext);
+                const onChange = useCallback(
+                  (value: unknown, valueObject: any) => {
+                    const targetId =
+                      location && layout === "vertical"
+                        ? `${location.parentId}.${location.index}.${data.id}`
+                        : data.id;
+                    const command: DispatchSetValueProps = {
+                      type: "SET_VALUE",
+                      targetId,
+                      value: value,
+                    };
+                    if (instanceDispatch) {
+                      instanceDispatch(command);
+                    } else {
+                      designerDispatch(command);
+                    }
 
-               const unstagedValues: any = {};
-               data.onChange?.(
-                 value,
-                 {
-                   ...interactions,
-                   /**
-                    * Wrapper to replace the result of default getValue with unstaged values
-                    * @param id: e.g., name, details.0.name, details.name
-                    */
-                   getValue(id: string): unknown | unknown[] {
-                     for (const unstagedId in unstagedValues) {
-                       if (
-                         !Object.prototype.hasOwnProperty.call(
-                           unstagedValues,
-                           unstagedId
-                         )
-                       ) {
-                         continue;
-                       }
+                    const unstagedValues: any = {};
+                    data.onChange?.(
+                      value,
+                      {
+                        ...interactions,
+                        /**
+                         * Wrapper to replace the result of default getValue with unstaged values
+                         * @param id: e.g., name, details.0.name, details.name
+                         */
+                        getValue(id: string): unknown | unknown[] {
+                          for (const unstagedId in unstagedValues) {
+                            if (
+                              !Object.prototype.hasOwnProperty.call(
+                                unstagedValues,
+                                unstagedId
+                              )
+                            ) {
+                              continue;
+                            }
 
-                       const unstagedValue = unstagedValues[unstagedId];
+                            const unstagedValue = unstagedValues[unstagedId];
 
-                       if (id === unstagedId) {
-                         return unstagedValue;
-                       }
+                            if (id === unstagedId) {
+                              return unstagedValue;
+                            }
 
-                       const unstagedIds = unstagedId.split(".");
+                            const unstagedIds = unstagedId.split(".");
 
-                       if (
-                         unstagedIds.length === 3 &&
-                         id === `${unstagedIds[0]}.${unstagedIds[2]}`
-                       ) {
-                         const values = interactions.getValue(id);
-                         // replace stage value with unstaged value
-                         values.splice(
-                           parseInt(unstagedIds[1]),
-                           1,
-                           unstagedValue
-                         );
-                         return values;
-                       }
-                     }
-                     return interactions.getValue(id);
-                   },
-                   /**
-                    * Wrapper to save value to unstaged values
-                    * @param id: e.g., name, details.0.name, details.name
-                    * @param value: value of component
-                    */
-                   setValue(id: string, value: unknown): void {
-                     unstagedValues[id] = value;
-                     interactions.setValue(id, value);
-                   },
-                 },
-                 valueObject,
-                 location
-               );
-             },
-             [
-               data,
-               designerDispatch,
-               instanceDispatch,
-               interactions,
-               layout,
-               location,
-             ]
-           );
-           const props = useMemo(
-             () => ({
-               onChange,
-               data,
-               layout,
-             }),
-             [data, layout, onChange]
-           );
-           return (
-             <>
-               <div
-                 ref={ref}
-                 style={{ ...style, position: "relative" }}
-                 className={`instance ${
-                   !instanceDispatch && data.active ? " active " : " "
-                 }${className || ""}`}
-                 onClick={onClick}
-               >
-                 {children}
-                 {data.type === "input" ? (
-                   <InputCell
-                     {...props}
-                     register={register}
-                     control={control}
-                   />
-                 ) : data.type === "textarea" ? (
-                   <TextAreaCell {...props} control={control} />
-                 ) : data.type === "grid" ? (
-                   <GridCell
-                     data={data as LanedCellData}
-                     customCells={customCells}
-                     control={control}
-                   />
-                 ) : data.type === "section" ? (
-                   <SectionCell
-                     data={data as LanedCellData}
-                     customCells={customCells}
-                     control={control}
-                   />
-                 ) : data.type === "address" ? (
-                   <AddressCell
-                     data={data as LanedCellData}
-                     customCells={customCells}
-                   />
-                 ) : data.type === "list" ? (
-                   <GridCell
-                     data={data as LanedCellData}
-                     direction={"vertical"}
-                     customCells={customCells}
-                     control={control}
-                   />
-                 ) : data.type === "select" ? (
-                   <SelectCell {...props} data={data as SelectCellData} />
-                 ) : data.type === "gender" ? (
-                   <GenderCell {...props} data={data as GenderCellData} />
-                 ) : data.type === "datetime" ? (
-                   <DateCell {...props} />
-                 ) : data.type === "checkbox" ? (
-                   <CheckboxCell {...props} />
-                 ) : data.type === "label" ? (
-                   <LabelCell {...props} />
-                 ) : data.type === "switch" ? (
-                   <SwitchCell {...props} />
-                 ) : data.type === "pages" ? (
-                   <PageCell
-                     {...props}
-                     data={data as TabCellData}
-                     customCells={customCells}
-                   />
-                 ) : data.type === "tab" ? (
-                   <TabCell
-                     {...props}
-                     data={data as TabCellData}
-                     customCells={customCells}
-                   />
-                 ) : (
-                   (customCells &&
-                     customCells.some((item) => item.type === data.type) &&
-                     React.createElement(
-                       customCells.filter((item) => item.type === data.type)[0]
-                         .cell,
-                       props
-                     )) || (
-                     <>
-                       <span>{`Not found: ${data.type} of ${customCells
-                         ?.map((item) => item.type)
-                         .join(", ")}`}</span>
-                     </>
-                   )
-                 )}
-               </div>
-             </>
-           );
-         }
+                            if (
+                              unstagedIds.length === 3 &&
+                              id === `${unstagedIds[0]}.${unstagedIds[2]}`
+                            ) {
+                              const values = interactions.getValue(id);
+                              // replace stage value with unstaged value
+                              values.splice(
+                                parseInt(unstagedIds[1]),
+                                1,
+                                unstagedValue
+                              );
+                              return values;
+                            }
+                          }
+                          return interactions.getValue(id);
+                        },
+                        /**
+                         * Wrapper to save value to unstaged values
+                         * @param id: e.g., name, details.0.name, details.name
+                         * @param value: value of component
+                         */
+                        setValue(id: string, value: unknown): void {
+                          unstagedValues[id] = value;
+                          interactions.setValue(id, value);
+                        },
+                      },
+                      valueObject,
+                      location
+                    );
+                  },
+                  [
+                    data,
+                    designerDispatch,
+                    instanceDispatch,
+                    interactions,
+                    layout,
+                    location,
+                  ]
+                );
+                const props = useMemo(
+                  () => ({
+                    onChange,
+                    data,
+                    layout,
+                  }),
+                  [data, layout, onChange]
+                );
+                return (
+                  <>
+                    <div
+                      ref={ref}
+                      style={{ ...style, position: "relative" }}
+                      className={`instance ${
+                        !instanceDispatch && data.active ? " active " : " "
+                      }${className || ""}`}
+                      onClick={onClick}
+                    >
+                      {children}
+                      {data.type === "input" ? (
+                        <InputCell
+                          {...props}
+                          register={register}
+                          control={control}
+                        />
+                      ) : data.type === "textarea" ? (
+                        <TextAreaCell {...props} control={control} />
+                      ) : data.type === "grid" ? (
+                        <GridCell
+                          data={data as LanedCellData}
+                          customCells={customCells}
+                          control={control}
+                        />
+                      ) : data.type === "section" ? (
+                        <SectionCell
+                          data={data as LanedCellData}
+                          customCells={customCells}
+                          control={control}
+                        />
+                      ) : data.type === "address" ? (
+                        <AddressCell
+                          data={data as LanedCellData}
+                          customCells={customCells}
+                        />
+                      ) : data.type === "list" ? (
+                        <GridCell
+                          data={data as LanedCellData}
+                          direction={"vertical"}
+                          customCells={customCells}
+                          control={control}
+                        />
+                      ) : data.type === "select" ? (
+                        <SelectCell
+                          {...props}
+                          data={data as SelectCellData}
+                          control={control}
+                        />
+                      ) : data.type === "gender" ? (
+                        <GenderCell
+                          {...props}
+                          data={data as GenderCellData}
+                          control={control}
+                        />
+                      ) : data.type === "datetime" ? (
+                        <DateCell {...props} control={control} />
+                      ) : data.type === "checkbox" ? (
+                        <CheckboxCell {...props} control={control} />
+                      ) : data.type === "label" ? (
+                        <LabelCell {...props} />
+                      ) : data.type === "switch" ? (
+                        <SwitchCell {...props} control={control} />
+                      ) : data.type === "pages" ? (
+                        <PageCell
+                          {...props}
+                          data={data as TabCellData}
+                          customCells={customCells}
+                          control={control}
+                        />
+                      ) : data.type === "tab" ? (
+                        <TabCell
+                          {...props}
+                          data={data as TabCellData}
+                          customCells={customCells}
+                          control={control}
+                        />
+                      ) : (
+                        (customCells &&
+                          customCells.some((item) => item.type === data.type) &&
+                          React.createElement(
+                            customCells.filter(
+                              (item) => item.type === data.type
+                            )[0].cell,
+                            props
+                          )) || (
+                          <>
+                            <span>{`Not found: ${
+                              data.type
+                            } of ${customCells
+                              ?.map((item) => item.type)
+                              .join(", ")}`}</span>
+                          </>
+                        )
+                      )}
+                    </div>
+                  </>
+                );
+              }
        );
