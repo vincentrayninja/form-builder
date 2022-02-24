@@ -226,7 +226,10 @@ export const Designer = forwardRef(
                           <Button
                             onClick={() => {
                               alert(JSON.stringify(data));
-                              console.log("Save Form---->", data);
+                              console.log(
+                                "Save Form---->",
+                                JSON.stringify(data)
+                              );
                             }}
                           >
                             Save

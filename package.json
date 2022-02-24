@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://joyceworks.github.io/dynamic-form-react/",
   "dependencies": {
+    "@hookform/resolvers": "^2.8.8",
     "antd": "^4.15.1",
     "immutability-helper": "^3.1.1",
     "react": "17.0.0",
