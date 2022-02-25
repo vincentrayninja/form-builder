@@ -1,4 +1,5 @@
-export const GetValidations = (objs: any): any => {
+let dataArr: any = [];
+export const GetValidations = (objs: any): any[] => {
   //   console.log("obj", obj);
   for (const obj of objs) {
     let { cellDataList } = obj;
@@ -11,11 +12,13 @@ export const GetValidations = (objs: any): any => {
         type === "grid"
       ) {
         let { lanes } = data;
-        lanes.map((lane: any) => {});
+        GetValidations(lanes);
       } else {
+        if (data?.required === true) {
+          dataArr.push(data.id);
+        }
       }
     });
   }
+  return dataArr;
 };
-
-const getLanesData = (lanes: any) => {};

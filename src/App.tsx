@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import { Designer } from "./components/Form/Designer";
 import Form from "./components/Form";
@@ -181,7 +181,18 @@ function App() {
     active: false,
   };
 
-  const schemaArr = GetValidations(FormFormation2.lanes);
+  const [schemaFormValid, setSchemaFormValid] = useState<any>([]);
+
+  useEffect(() => {
+    setSchemaFormValid(GetValidations(FormFormation2.lanes));
+  }, []);
+
+  useEffect(() => {
+    const makeSchema = schemaFormValid.map((s: any) => {
+      return { [s]: yup.string().required() };
+    });
+    console.log("key-->here", makeSchema);
+  }, [schemaFormValid]);
 
   let schema = yup.object().shape({
     textarea1645687017089: yup.string().required(),
